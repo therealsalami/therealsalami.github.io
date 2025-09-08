@@ -2,15 +2,48 @@
 <html>
 <head>
     <title>Project 0</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
     </style>
 </head>
 <body>
-    <h1>Project 0: Figuring this out</h1>
-    I don't know what this will entail yet, but I'm making sure this works first
+    Jaromir Saloni
+    <h1>Project 0: </h1>
+
+        <h2>Part 1: Linear Neural Networks for Classification</h2>
+            <h3>Question 1: Visualize 10 Images from the dataset</h3>
+
+            Ok, so here we visualized it
+            <img src="media/Clothes.png">
+
+
+            <h3>- Hyperparameter analysis</h3>
+                <h4>- 2.1 Try to use different learning rates, plot how validation loss changes.</h4>
+                <h4>- 2.2 Try to use different batch sizes, how validation and training loss changes?</h4>
+
+
+            <h3> Question 3: Explain the overflow and underflow problems in softmax computation,
+            \( \hat y_j = \frac{\exp(o_j)}{\sum_k \exp(o_k)} \).
+            One possible solution to this problem is to subtract
+            \( \bar{o} \stackrel{\textrm{def}}{=} \max_k o_k \) from all entries,
+            explain how this potentially can solve the overflow problem.
+            Is this solution perfect or you think this solution may cause some other problems (e.g., NaN)?</h3>
+        <h2>Part 2: Multilayer Perceptrons (MLPs)</h2>
+            <h3>Question 1: Come up with an example that the gradients vanish for the sigmoid activation function.</h3>
+
+            <h3>Question 2: Give it a try to add one hidden layer, show how it affects the results. What if adding a hidden layer with one single neuron, what’s the results? Please discuss what you get and why. </h3>
+
+            <h3>Question 3: What’s the memory footprint for training and prediction in the model described in the above example? </h3>
+
+        <h2>Part 3: Basic Convolutional Neural Networks (LeNet)</h2>
+            <h3>Question 1: Use different epochs (5, 10, 20) to train your LeNet, plot the training loss, validation loss, and validation accuracy of each training process, and discuss how changing training epochs affects the performance. </h3>
+            <h3>Question 2: Modifying LeNet: Replace average pooling with max-pooling, replace the Sigmoid layer with ReLU. After doing so, redo the above experiment (Using different epochs 5, 10, 20), plot the training loss, validation loss, and validation accuracy for each training process. Discuss the changes compared to the results of original LeNet training.</h3>
+            <h3>Question 3: Use a different dataset, MNIST(PyTorch, TensorFlow), to do training and plot training loss/accuracy and test accuracy, and discuss the results. </h3>
 </body>
 </html>
