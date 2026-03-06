@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2 | Modern RNNs</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(to bottom, #000000, #1a1a1a);
+            color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 4rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .btn-home {
+            padding: 0.5rem 1rem;
+            background: #222;
+            border: 1px solid #444;
+            color: #aaa;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .btn-home:hover { border-color: #fff; color: #fff; }
+
+        h1 { margin: 0; font-weight: 300; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        main { padding: 4rem; max-width: 800px; margin: auto; }
+
+        .section-header {
+            font-size: 2.5rem;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            border-left: 4px solid #fff;
+            padding-left: 1.5rem;
+        }
+
+        p { line-height: 1.8; color: #9ca3af; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="btn-home">← Back</a>
+    <h1>Modern Recurrent Neural Networks</h1>
+    <div style="width: 80px;"></div>
+</header>
+
+<main>
+    <h2 class="section-header">Part 1: Basic RNNs</h2>
+    <p>Analysis of the vanilla recurrent architecture. This section covers the core mechanics of state updates $H_t = \phi(X_t W_{xh} + H_{t-1} W_{hh} + b_h)$ and the inherent challenges in learning long-term dependencies.</p>
+
+    <h2 class="section-header">Part 2: GRUs</h2>
+    <p>Implementation and evaluation of Gated Recurrent Units. We explore how the gating mechanism controls the information flow, significantly improving the model's ability to maintain context over extended sequences.</p>
+</main>
+
+</body>
+</html>
