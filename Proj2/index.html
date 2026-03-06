@@ -48,6 +48,19 @@
             padding-left: 1.5rem;
         }
 
+        .section-subheader {
+            font-size: 1.8rem;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            border-left: 4px solid #fff;
+            padding-left: 1.5rem;
+        }
+        .gallery {
+            display: flex;
+            gap: 15px;
+        }        
+
         p { line-height: 1.8; color: #9ca3af; font-size: 1.1rem; }
     </style>
 </head>
@@ -61,10 +74,132 @@
 
 <main>
     <h2 class="section-header">Part 1: Basic RNNs</h2>
-    <p>Analysis of the vanilla recurrent architecture. This section covers the core mechanics of state updates $H_t = \phi(X_t W_{xh} + H_{t-1} W_{hh} + b_h)$ and the inherent challenges in learning long-term dependencies.</p>
+    <p>In the following section, I adjust the following Hyperparameters
+        in order to determine their effect on the model's performance:
+        <br></br>
+        <br>- Learning rate </br>
+        <br>- Number of Hidden Units </br>
+        <br>- Number of time steps in minibatch </br>
+        <br>- Number of Epochs </br>
+        
+    </p>
 
+    <h4 class="section-subheader">Part (a): Learning rate</h4>
+        <p>
+            Learning rate controls how much a model's internal weights are 
+            updated during each iteration. We can think of this as "how big of a step are we taking?"
+            <br>The values we will explore for learning rate: [.1, .5, 1, 2, 5]</br>
+        </p>
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\LR.1.png" alt="Learning rate = 0.1">
+            <figcaption>Learning rate = 0.1</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\LR.3.png" alt="Learning rate = 0.3">
+            <figcaption>Learning rate = 0.3</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part1\LR1.png" alt="Learning rate = 1">
+            <figcaption>Learning rate = 1</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\LR2.png" alt="Learning rate = 2">
+            <figcaption>Learning rate = 2</figcaption>
+        </figure>
+        </div> 
+        <figure>
+            <img src=".\assets\Part1\LR5.png" alt="Learning rate = 5">
+            <figcaption>Learning rate = 5</figcaption>
+        </figure>
+        
+        <p>
+            [SOME CONTENT HERE]
+        </p>
+    
+
+
+        <h4 class="section-subheader">Number of hidden Units</h4>
+        <p>
+            The number of hidden Units allows for control over the complexity (dimensionality) 
+            that our model can handle.
+            <br>The values we will explore for Hidden Units: [8, 16, 32, 64]</br>
+        </p>    
+
+    <h4 class="section-subheader">Number of time steps in a Minibatch</h4>
+        <p>
+            Number of time steps in a minibatch controls the temporal length of each sequence sample provided to the model during a single training iteration.
+            <br>The values we will explore for time steps: [8, 16, 32, 64]</br>
+        </p>        
+
+    <h4 class="section-subheader">Number of Epochs</h4>
+        <p>
+            An Epoch is one instance of passing the entirety of the dataset through the model.
+            "how many repetitions are we going to do?"
+            <br>The values we will explore for Epochs: [10, 50, 100, 250]
+
+        </p>  
+        
+    <h4 class="section-subheader">3 Best Models</h4>
+
+    <p>
+        [SOME CONTENT HERE]
+    </p>
+
+    <h4 class="section-subheader">Part (b): Effect of Gradient Clipping and ReLU</h4>
+        <p>
+            First, we want to see the ReLU function in relation to the tanh function that I 
+            implemented previously:
+
+        </p>
+
+        <p>
+            [SOME CONTENT HERE]
+        </p>
+
+        <p>
+            Now, let's compare the training when gradient is not clipped and the learning rate is 1
+        </p>
+
+        <p>
+            ReLU seems to handle the data well, even without gradient clipping, though it is visible that the model without gradient clipping is a bit more unstable during its training process, with spikes in the trianing and validation set.
+        </p>
+
+        <p>
+            Let's see what happens if we bump up the learning rate:
+        </p>
+
+        <p>
+            It is to be expected that training will be more unstable if the learning rate is set to 5, but we can see the effect of the gradient clipping. In the model without clipping, we see a large spike around the 25th epoch. Additional, smaller spikes are seen in later epochs. These perterbations are contianed in this model, but there may be instances in which this is not handled well, and will cause an explosion in perplexity.
+        </p>
+
+        <p>
+            Takeaway: We should use gradient clipping in combination with ReLu. 
+        </p>
+
+
+
+
+
+
+
+
+
+    
     <h2 class="section-header">Part 2: GRUs</h2>
-    <p>Implementation and evaluation of Gated Recurrent Units. We explore how the gating mechanism controls the information flow, significantly improving the model's ability to maintain context over extended sequences.</p>
+
+        <h4 class="section-subheader">Part (a) Learning Rate</h4>
+        <h4 class="section-subheader">Hidden Units</h4>
+        <h4 class="section-subheader">Minibatch Steps</h4>
+
+        <h4 class="section-subheader">3 Best Models</h4>
+
+        <h4 class="section-subheader">Part(b) Ablation Study on GRU gates</h4>
+
+
 </main>
 
 </body>
