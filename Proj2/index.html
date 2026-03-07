@@ -117,7 +117,9 @@
         </figure>
         
         <p>
-            [SOME CONTENT HERE]
+            It seems that the learning rate of 2 seemed to do the best out of all of the learning rates that I tested. The general trend shows that with a higher learning rate, the perplexity drops off more sharply. With a very small learning rate, the training was more stable, but it resulted in longer time needed to reach the end
+
+            On the topic of LR = 5... holy gradient explosion. Even with the gradient clipping, with a learning rate that high, jumps were exponential. The perplexity exploded several times, and early on too.
         </p>
     
 
@@ -127,13 +129,66 @@
             The number of hidden Units allows for control over the complexity (dimensionality) 
             that our model can handle.
             <br>The values we will explore for Hidden Units: [8, 16, 32, 64]</br>
-        </p>    
+        </p>
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\Hidden8.png" alt="8 hiddenlayers">
+            <figcaption>Hidden Layers: 8</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\Hidden16.png" alt="16 hiddenlayers">
+            <figcaption>Hidden Layers: 16</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part1\Hidden32.png" alt="32 hiddenlayers">
+            <figcaption>Hidden Layers: 32</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\Hidden64.png" alt="64 hiddenlayers">
+            <figcaption>Hidden Layers: 64</figcaption>
+        </figure>
+        </div> 
+
+        <p>
+            The general behavior of the hidden units is about the same relative to Learning rate, so there are not large, noticeable changes in the beginning of training.
+
+What is worth noting is that as the number of hidden units increases, the perplexity is able to drop further in the later stages of training. Interestingly, the gap between training perplexity and validation perplexity is larger when there are more hidden units. This leads me to believe that the model is becomming overfitted to the training set
+        </p>
+      
 
     <h4 class="section-subheader">Number of time steps in a Minibatch</h4>
         <p>
             Number of time steps in a minibatch controls the temporal length of each sequence sample provided to the model during a single training iteration.
             <br>The values we will explore for time steps: [8, 16, 32, 64]</br>
-        </p>        
+        </p>
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\mini8.png" alt="8 minibatch">
+            <figcaption>Time Steps in minibatch: 8</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\mini16.png" alt="16 minibatch">
+            <figcaption>Time Steps in minibatch: 16</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part1\mini32.png" alt="32 minibatch">
+            <figcaption>Time Steps in minibatch: 32</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\mini64.png" alt="64 minibatch">
+            <figcaption>Time Steps in minibatch: 64</figcaption>
+        </figure>
+        </div>   
+        
+        <p>
+            In this I do not see a major difference.
+        </p>
 
     <h4 class="section-subheader">Number of Epochs</h4>
         <p>
@@ -141,28 +196,153 @@
             "how many repetitions are we going to do?"
             <br>The values we will explore for Epochs: [10, 50, 100, 250]
 
-        </p>  
+        </p> 
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\epoch10.png" alt="epoch10">
+            <figcaption>10 Epochs</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\epoch50.png" alt="epoch50">
+            <figcaption>50 Epochs</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part1\epoch100.png" alt="epoch100">
+            <figcaption>100 Epochs</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\epoch250.png" alt="epoch250">
+            <figcaption>250 Epochs</figcaption>
+        </figure>
+        </div>
+
+        <p>
+            
+With more epochs, the model is able to reach a lower perplexity. However, after a certain point, it becomes saturated additional gains are negligible. In particular, any improvement beyond 100 epochs is negligible, as the perplexity decreases by 2 over 150 additional epochs. The validation set also reaches a plateau and no further improvement on generalization is made
+        </p>
+
+    <h4 class="section-subheader">Taking the Best from the previous</h4>
+        <p>
+            Just for fun, lets take the parameters that resulted in the lowest perplexity in each category, and put them in one.
+
+             Number of Epochs: 250
+
+            Number of hidden Units:64
+
+            number of time steps in minibatch: 64
+
+            learning rate:2
+        </p>
+        <figure>
+            <img src=".\assets\Part1\funsies.png" alt="fun">
+            <figcaption>250 Epochs, 64 hidden, 64 time steps, LR =2</figcaption>
+        </figure>
+         
+        <p>
+            Woah! Interesting result!
+
+The training set reaches a very low perplexity very early. (Perplexity of 5 is reached at just 50 epochs). The perplexity continues to drop to an even smaller value as the epochs grow.  But beyond 50 epochs, the perplexity actually begins to grow on the validation set. I believe that there is severe overfitting to the training set and that genearlization gets worse.
+        </p>
         
     <h4 class="section-subheader">3 Best Models</h4>
 
+    <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\epoch250.png" alt="epoch250">
+            <figcaption>250 Epochs</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\Hidden64.png" alt="64 hiddenlayers">
+            <figcaption>Hidden Layers: 64</figcaption>
+        </figure>                
+        </div>
+        <figure>
+            <img src=".\assets\Part1\funsies.png" alt="fun">
+            <figcaption>250 Epochs, 64 hidden, 64 time steps, LR =2</figcaption>
+        </figure>  
     <p>
-        [SOME CONTENT HERE]
+        These three models have the best performance overall on the training set, with the "just for fun" model
+        reaching the lowest perplexity. The validation set, however has a perplexity that is growing, meaning that I think
+        overfitting is at play here. In terms of the base model with 250 epochs, it also has a low perplexity score
+        which is due to the amount of epochs that the model undergoes. It has more time with the data so it can pull out 
+        more features and find smaller changes and micro adjustments.
+        For the model with the 64 hidden layers, it reaches a low perplexity score due to the complex shapes that it can 
+        create. Since it has more layers, the descision boundary is more complex and able to maneuver more.
     </p>
 
     <h4 class="section-subheader">Part (b): Effect of Gradient Clipping and ReLU</h4>
         <p>
-            First, we want to see the ReLU function in relation to the tanh function that I 
+            What is the effect of gradient clipping?
+        </p>
+
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\epoch100.png" alt="base">
+            <figcaption>Base config</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\noclipbase.png" alt="base no clip">
+            <figcaption>Base config without clipping</figcaption>
+        </figure>                
+        </div>
+        <p>
+            Hmm... It seems to be a tad but more unstable, but not super noticeable. Let's try again with a higher learning rate (LR = 5)
+        </p>
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\LR5.png" alt="LR5">
+            <figcaption>Base config (LR =5)</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\noclip5.png" alt="LR =5 noclip">
+            <figcaption>Base config (LR =5) without clipping</figcaption>
+        </figure>                
+        </div>
+
+
+        <p>
+            Gradient clipping is definitly necessary. Perplexity explodes without it. learning rates were changed just to emphasize the point. When the learnign rate of 5 is compared to when there was gradient clipping, the model becomes much more unstable much earlier in the training.
+        </p>
+    
+        
+    
+        <p>
+            We want to see the ReLU function in relation to the tanh function that I 
             implemented previously:
 
         </p>
-
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\epoch100.png" alt="base">
+            <figcaption>Base config</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\reluclip1.png" alt="relu base clip">
+            <figcaption>Base relu (LR =1)</figcaption>
+        </figure>                
+        </div>
+        
         <p>
             [SOME CONTENT HERE]
         </p>
+        <h4 class="section-subheader">ReLU!</h4>
 
         <p>
             Now, let's compare the training when gradient is not clipped and the learning rate is 1
         </p>
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\reluclip1.png" alt="relu base clip">
+            <figcaption>Base relu (LR =1)</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\reluNoclip1.png" alt="relu no clip">
+            <figcaption>relu without clipping (LR =1)</figcaption>
+        </figure>                
+        </div>
 
         <p>
             ReLU seems to handle the data well, even without gradient clipping, though it is visible that the model without gradient clipping is a bit more unstable during its training process, with spikes in the trianing and validation set.
@@ -172,6 +352,16 @@
             Let's see what happens if we bump up the learning rate:
         </p>
 
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part1\REluClip5.png" alt="relu lr=5">
+            <figcaption>Base relu (LR =5)</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part1\ReLu5,noclip.png" alt="relu no clip lr=5">
+            <figcaption>relu without clipping (LR =5)</figcaption>
+        </figure>                
+        </div>
         <p>
             It is to be expected that training will be more unstable if the learning rate is set to 5, but we can see the effect of the gradient clipping. In the model without clipping, we see a large spike around the 25th epoch. Additional, smaller spikes are seen in later epochs. These perterbations are contianed in this model, but there may be instances in which this is not handled well, and will cause an explosion in perplexity.
         </p>
