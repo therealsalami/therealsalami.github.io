@@ -308,7 +308,8 @@ The training set reaches a very low perplexity very early. (Perplexity of 5 is r
         </p>
     
         
-    
+        <h4 class="section-subheader">ReLU!</h4>
+
         <p>
             We want to see the ReLU function in relation to the tanh function that I 
             implemented previously:
@@ -326,9 +327,8 @@ The training set reaches a very low perplexity very early. (Perplexity of 5 is r
         </div>
         
         <p>
-            [SOME CONTENT HERE]
+            Performance-wise, the two functions appear to perform similarly. However, the relu appears to be a bit more "choppy"
         </p>
-        <h4 class="section-subheader">ReLU!</h4>
 
         <p>
             Now, let's compare the training when gradient is not clipped and the learning rate is 1
@@ -380,17 +380,161 @@ The training set reaches a very low perplexity very early. (Perplexity of 5 is r
 
     
     <h2 class="section-header">Part 2: GRUs</h2>
+        <h4 class="section-subheader">Task 1: Hyperparameter Tuning</h4>
 
-        <h4 class="section-subheader">Part (a) Learning Rate</h4>
+        <p>
+            Similarly to part 1, we need to tune some hyperparameters so that we can get some better performance out of our model
+            What we will do differently in this part, is that we will tune one hyperparameter, and then use the best model out of 
+            that set to tune the next hyperparameter.
+        </p>
+
+        <h4 class="section-subheader">Learning Rate: [.5, 2, 5, 10]</h4>
+
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part2\LR.5.png" alt="pt2lr.5">
+            <figcaption>Learning rate = 0.5</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\LR2.png" alt="pt2lr2">
+            <figcaption>Learning rate = 2</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part2\LR5.png" alt="pt2lr5">
+            <figcaption>Learning rate = 5</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\LR10.png" alt="pt2lr10">
+            <figcaption>Learning rate = 10</figcaption>
+        </figure>
+        </div> 
+
+         <p>
+            For GRU, there seems to be a much longer, more drawn out tail for the smaller learning rates. In other words, it doesn't want to plateau as quickly as the RNN implementation. As for the best performing model, it seems that a learning rate of 2 provides a good balance of stability and performance, but the performance benefits of the learning rate of 5 outweigh it, so we will go with a LR of 5 for the next trial
+
+            Let's adjust hiddenUnits now
+        </p>
+
         <h4 class="section-subheader">Hidden Units</h4>
+
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part2\hidunit16.png" alt="pt2hu16">
+            <figcaption>Hidden Units: 16</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\hidunit32.png" alt="pt2hu32">
+            <figcaption>Hidden Units: 32</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part2\hidunit64.png" alt="pt2hu64">
+            <figcaption>Hidden Units: 64</figcaption>
+            </figure>
+        <figure>
+            <img src=".\assets\Part2\hidunit128.png" alt="pt2hu128">
+            <figcaption>Hidden Units: 128</figcaption>
+        </figure>
+        </div> 
+
+        <p>
+            Similarly to how the hidden units performed in the RNN implementation, they exhibit a similar pattern here. 
+            ore hidden units leads to more complex decision boundaries, and better representation (lower perplexity scores).
+            In these trials, we also see that the learning rate does play a major factor in the stability, as some models (such as the 128 hidden units) is more stable than others (32 hidden units). The model with 64 hidden units performs the best with the current setting of LR = 5
+
+            Finally, let's look at minibatch time steps
+        </p>
+
         <h4 class="section-subheader">Minibatch Steps</h4>
+
+        <div class="gallery">
+        <figure>
+            <img src=".\assets\Part2\mbsteps8.png" alt="pt2mb8">
+            <figcaption>Minibatch Steps: 8</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\mbsteps16.png" alt="pt2mbsteps16">
+            <figcaption>Minibatch Steps: 16</figcaption>
+        </figure>                
+        </div> 
+
+        <div class ='gallery'>
+            <figure>
+            <img src=".\assets\Part2\mbsteps32.png" alt="pt2mbsteps32">
+            <figcaption>Minibatch Steps: 32</figcaption>
+            </figure>
+        <figure>
+            <img src=".\assets\Part2\mbsteps64.png" alt="pt2mbsteps64">
+            <figcaption>Minibatch Steps:128</figcaption>
+        </figure>
+        </div> 
+
+        <p>
+            With minibatch time steps, we see something interesting. The performance of bothe the training and validation set improve as the amount of time steps increases, but after 32 time steps, we see the perplexity of the validation set begin to increase again, while the training set continues to decrease. It seems that the model begins to overfit here, or gets lost with so much context
+        </p>
 
         <h4 class="section-subheader">3 Best Models</h4>
 
-        <h4 class="section-subheader">Part(b) Ablation Study on GRU gates</h4>
+        <div class = "gallery">
+        <figure>
+            <img src=".\assets\Part2\hidunit128.png" alt="best1">
+            <figcaption>LR = 5, Hidden Units: 128, Mb steps =32</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\mbsteps16.png" alt="best2">
+            <figcaption>LR = 5, Hidden Units: 64, Mb steps =16</figcaption>
+        </figure>                
+        </div>
+        <figure>
+            <img src=".\assets\Part2\mbsteps32.png" alt="best3">
+            <figcaption>LR = 5, Hidden Units: 64, Mb steps =32</figcaption>
+        </figure> 
+        </div>
+
+        <p>
+            All three of these models performed very similarly, with slight deviations between them.
+            The model with the highest amount of hidden units reached the lowest perplexity.
+            The model with 64 hidden units and 16 mb steps performed very comparitively to the previously mentioned model,
+            but had a more closely related validation set
+            The final model has a greater disparity between the perplexity of the training and validation sets. 
+        </p>
+
+        <h4 class="section-subheader">Task 2: Ablation Study on GRU gates</h4>
+        <figure>
+            <img src=".\assets\Part2\resetonly.png" alt="best3">
+            <figcaption>update Gate inactive</figcaption>
+        </figure>
+        <figure>
+            <img src=".\assets\Part2\updateonly.png" alt="best3">
+            <figcaption>reset gate inactive</figcaption>
+        </figure>
+        
+        <p>
+            Both of these perplexity graphs result in very similar structure. There is a difference in that the 
+            model with the reset gate inactive had choppier updates. we see more spiky structure.
+        </p>
 
 
 </main>
 
 </body>
+<style>
+  footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #ccc; /* Optional: adds a thin line above the name */
+    font-size: 0.9em;
+    color: #666;
+  }
+</style>
+
+<footer>
+  <p>© 2026 Jaromir Saloni</p>
+</footer>
 </html>
